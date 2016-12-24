@@ -1,0 +1,128 @@
+$photoTileWidth: 300px;
+$photoTilesWide: 3;
+
+
+body {
+
+    background-color:lightblue;
+
+    > main {
+
+        width: $photoTileWidth * $photoTilesWide;
+        margin-left:auto;
+        margin-right:auto;
+
+        > div {
+            display:block;
+            position:static;
+            float:none;
+        }
+    }
+
+}
+
+@keyframes hide-photo-default {
+    0%   { opacity: 1; }
+    75%  { opacity: 0; }
+    100%  { opacity: 0; }
+}
+
+@keyframes show-photo-hover {
+    0%   { opacity: 0; }
+    25%  { opacity: 0; }
+    85%  { opacity: 0.9; }
+    100%  { opacity: 1; }
+}
+
+
+
+div.photo-tile:nth-child(1) {
+    left:0;
+}
+div.photo-tile:nth-child(2) {
+    left:$photoTileWidth;
+}
+div.photo-tile:nth-child(3) {
+    left:2 * $photoTileWidth;
+}
+
+div.photo-tile.photo-selected {
+    top: $photoTileWidth / 2;
+    left: $photoTileWidth / 2;
+    width: (2 * $photoTileWidth) - 200;
+    transition: top left width 1s linear;
+}
+
+div.photo-tile {
+
+    width:$photoTileWidth;
+    height:$photoTileWidth;
+    margin:0;
+    padding:0;
+    position:absolute;
+
+    top: 0;
+    transition: top 1s linear;    
+
+    > h2 {
+        margin:0;
+        padding:0;
+        z-index: 1000;
+        display: block;
+        position:absolute;
+        left:0;
+        width:$photoTileWidth;
+        color:white;
+        text-align:center;
+        font-family: 'Parisienne', cursive;
+        font-weight:bold;
+        font-size:5rem;
+    }
+
+    > img {
+        width:$photoTileWidth;
+        height:$photoTileWidth;
+        position:absolute;
+        top:0; left:0;
+        z-index:0;
+    }
+
+    > img.photo-normal { 
+        opacity:1;
+    }
+
+    > img.photo-hover { 
+        opacity:0;
+    }
+
+    > img.photo-hover + h2 { 
+        display:none;
+    }    
+
+    &:hover { 
+
+        // > img.photo-normal { 
+        //     opacity:0;
+        //     animation-name: hide-photo-default;
+        //     animation-duration: 0.75s;
+        // }
+
+        > img.photo-hover { 
+            opacity:1;
+            animation-name: show-photo-hover;
+            animation-duration: 0.75s;
+        }
+
+        > img.photo-hover + h2 {
+            margin-top: -2.5rem;
+            top:50%;
+            display:block;
+        }           
+
+    }
+}
+
+section {
+    clear:both;
+    position:relative;
+}
