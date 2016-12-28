@@ -2,9 +2,10 @@
 
 from flask import Flask, render_template, jsonify
 import jsonpickle
+import psycopg2
 
-""" photo tile class """
 class PhotoTile:
+    """ photo tile class """
 
     def __init__(self):
         self.photo_tile_id = 0
@@ -19,31 +20,35 @@ app = Flask(__name__)
 @app.route('/api/photo-tiles', methods=['GET'])
 def get_all_photo_tiles():
 
-    photoTile = PhotoTile()
-    photoTile.photo_tile_id = 1
-    photoTile.normal_url = "static/images/hawaii_bw.jpg"
-    photoTile.hover_url = "static/images/hawaii_color.jpg"
-    photoTile.caption = "Hawaii"
+    photo_tiles = []
 
-    photoTile2 = PhotoTile()
-    photoTile2.photo_tile_id = 2
-    photoTile2.normal_url = "static/images/hawaii_bw.jpg"
-    photoTile2.hover_url = "static/images/hawaii_color.jpg"
-    photoTile2.caption = "Hawaii"
+    connArgs = [
+        "dbname=photo_web_site",
+        "user=photo_web_site",
+        "password=demo123!"
+    ]
 
-    photoTile3 = PhotoTile()
-    photoTile3.photo_tile_id = 3
-    photoTile3.normal_url = "static/images/hawaii_bw.jpg"
-    photoTile3.hover_url = "static/images/hawaii_color.jpg"
-    photoTile3.caption = "Hawaii"
+    conn = psycopg2.connect(' '.join(connArgs))
 
-    photoTile4 = PhotoTile()
-    photoTile4.photo_tile_id = 4
-    photoTile4.normal_url = "static/images/hawaii_bw.jpg"
-    photoTile4.hover_url = "static/images/hawaii_color.jpg"
-    photoTile4.caption = "Hawaii"
+    cur = conn.cursor()
 
-    return jsonpickle.encode([photoTile, photoTile2, photoTile3, photoTile4], unpicklable=False)
+    cur.execute("SELECT * FROM photo_tiles;")
+    photo_tile_results = cur.fetchall()
+
+    for photo_tile_result in photo_tile_results:
+        photo_tile = PhotoTile()
+        photo_tile.photo_tile_id = 1
+        photo_tile.normal_url = "static/images/hawaii_bw.jpg"
+        photo_tile.hover_url = "static/images/hawaii_color.jpg"
+        photo_tile.caption = "Hawaii"
+        photo_tiles.append(photo_tile)
+
+    conn.commit()
+
+    cur.close()
+    conn.close()
+
+    return jsonpickle.encode(photo_tiles, unpicklable=False)
 
 
 @app.route('/', methods=['GET'])
