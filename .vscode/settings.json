@@ -8,7 +8,7 @@
         "reports/": true,
         ".vscode/": true,
         "typings/": true,
-        "__pycache__": true,
+        "**/__pycache__": true,
         ".idea": true
     },
 	"editor.tabSize": 4,
