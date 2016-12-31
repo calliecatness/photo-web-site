@@ -1,7 +1,6 @@
 $photoTileWidth: 300px;
 $photoTilesWide: 3;
 
-
 body {
 
     background-color:lightblue;
@@ -12,19 +11,13 @@ body {
         margin-left:auto;
         margin-right:auto;
 
-        > div {
+        > div.photo-tile-grid {
             display:block;
             position:static;
             float:none;
         }
     }
 
-}
-
-@keyframes hide-photo-default {
-    0%   { opacity: 1; }
-    75%  { opacity: 0; }
-    100%  { opacity: 0; }
 }
 
 @keyframes show-photo-hover {
@@ -34,23 +27,12 @@ body {
     100%  { opacity: 1; }
 }
 
+@for $i from 1 through $photoTilesWide {
 
+    div.photo-tile:nth-child(#{$i}) {
+        left: ($i - 1) * $photoTileWidth;
+    }
 
-div.photo-tile:nth-child(1) {
-    left:0;
-}
-div.photo-tile:nth-child(2) {
-    left:$photoTileWidth;
-}
-div.photo-tile:nth-child(3) {
-    left:2 * $photoTileWidth;
-}
-
-div.photo-tile.photo-selected {
-    top: $photoTileWidth / 2;
-    left: $photoTileWidth / 2;
-    width: (2 * $photoTileWidth) - 200;
-    transition: top left width 1s linear;
 }
 
 div.photo-tile {
@@ -60,9 +42,7 @@ div.photo-tile {
     margin:0;
     padding:0;
     position:absolute;
-
     top: 0;
-    transition: top 1s linear;    
 
     > h2 {
         margin:0;
@@ -101,12 +81,6 @@ div.photo-tile {
 
     &:hover { 
 
-        // > img.photo-normal { 
-        //     opacity:0;
-        //     animation-name: hide-photo-default;
-        //     animation-duration: 0.75s;
-        // }
-
         > img.photo-hover { 
             opacity:1;
             animation-name: show-photo-hover;
@@ -120,9 +94,4 @@ div.photo-tile {
         }           
 
     }
-}
-
-section {
-    clear:both;
-    position:relative;
 }

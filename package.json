@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "description": "Sarah's Photo Website",
   "scripts": {
-    "start": "npm run clean && npm run webpack && concurrently \"npm run webpack:w\" \"npm run web\"",
-    "clean": "rimraf static",
-    "web": "python3 ./app.py",
-    "webpack:w": "webpack --config ./config.webpack.js --watch",
-    "webpack": "webpack --config ./config.webpack.js"
+    "start": "npm run clean && concurrently \"npm run webpack:w\" \"npm run web\" \"npm run rest\"",
+    "clean": "rimraf ./web/dist",
+    "web": "webpack-dev-server",
+    "rest": "python3 ./rest/app.py",
+    "webpack:w": "webpack --watch",
+    "webpack": "webpack"
   },
   "keywords": [
     "react",
@@ -15,11 +16,15 @@
     "react router",
     "es2015"
   ],
-  "authors": ["ericwgreene", "calliecatness"],
+  "authors": [
+    "ericwgreene",
+    "calliecatness"
+  ],
   "license": "MIT",
   "devDependencies": {
     "concurrently": "^3.0.0",
-    "flow-bin": "^0.36.0"
+    "flow-bin": "^0.36.0",
+    "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
     "autoprefixer": "^6.5.4",
@@ -35,26 +40,29 @@
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.26.1",
     "empty": "^0.10.1",
+    "es6-promise": "^4.0.5",
     "eslint": "^3.12.1",
     "eslint-config-defaults": "^9.0.0",
-    "eslint-plugin-flowtype": "^2.29.1",
+    "eslint-plugin-flowtype": "^2.29.2",
     "eslint-plugin-react": "^6.7.1",
+    "exports-loader": "^0.6.3",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
     "flow-bin": "^0.37.0",
     "html-loader": "^0.4.3",
-    "html-webpack-plugin": "^2.22.0",
+    "html-webpack-plugin": "^2.25.0",
+    "imports-loader": "^0.7.0",
     "key-mirror": "^1.0.1",
-    "lodash": "^4.16.2",
+    "lodash": "^4.17.3",
     "node-sass": "^4.0.0",
     "null-loader": "^0.1.1",
-    "postcss": "^5.0.21",
+    "postcss": "^5.2.8",
     "postcss-import": "^9.0.0",
     "postcss-loader": "^1.2.1",
     "raw-loader": "^0.5.1",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
-    "react-redux": "^4.4.6",
+    "react-redux": "^5.0.1",
     "react-router": "^3.0.0",
     "react-router-redux": "^4.0.7",
     "redux": "^3.6.0",
@@ -64,6 +72,7 @@
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
-    "webpack": "^1.14.0"
+    "webpack": "^1.14.0",
+    "whatwg-fetch": "^2.0.1"
   }
 }

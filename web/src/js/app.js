@@ -27,11 +27,10 @@ const createRefreshPhotoTilesAction = photoTiles => ({
 const refreshPhotoTiles = () => {
 
     return dispatch => {
-
         dispatch(createRefreshPhotoTilesRequestAction());
         fetch('/api/photo-tiles')
             .then(res => res.json())
-            .then(photoTilesData =>
+            .then(photoTilesData => {
                 dispatch(createRefreshPhotoTilesAction(
                     photoTilesData.map(photoTileData => {
                         const photoTile = new PhotoTile();
@@ -40,7 +39,9 @@ const refreshPhotoTiles = () => {
                         photoTile.hoverUrl = photoTileData.hover_url;
                         photoTile.caption = photoTileData.caption;
                         return photoTile;
-                    }))));
+                    })
+                )); 
+            });
 
     };
 
@@ -79,11 +80,11 @@ class App extends React.Component {
 
     render() {
 
-        return <div>
+        return <div className="photo-tile-grid">
             {this.props.photoTiles
                 .filter((photoTile, index) => index % 3 === 0)
                 .map((photoTile, index) =>
-                    <section key={index}>
+                    <div className="photo-tile-row" key={index}>
                         {this.props.photoTiles
                             .slice(this.props.photoTiles.indexOf(photoTile), this.props.photoTiles.indexOf(photoTile)+3)
                             .map(photoTile =>
@@ -91,7 +92,7 @@ class App extends React.Component {
                                     key={photoTile.id}
                                     photoTile={photoTile} />
                         )}
-                    </section>
+                    </div>
             )}
         </div>;
     }
@@ -100,8 +101,14 @@ class App extends React.Component {
 
 const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
 
-ReactDOM.render(
-    <AppContainer store={appStore} />,
-    document.querySelector('main')
-);
+document.addEventListener('DOMContentLoaded', function() {
+
+    ReactDOM.render(
+        <AppContainer store={appStore} />,
+        document.querySelector('main')
+    );
+
+});
+
+
 
