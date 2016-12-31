@@ -6,7 +6,7 @@ import { HomeContainer } from './components/home-container';
 
 import '../css/site.scss';
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
 
     ReactDOM.render(
         <HomeContainer store={appStore} />,

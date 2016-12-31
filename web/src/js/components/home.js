@@ -23,7 +23,9 @@ export class Home extends React.Component {
                 .map((photoTile, index) =>
                     <div className="photo-tile-row" key={index}>
                         {this.props.photoTiles
-                            .slice(this.props.photoTiles.indexOf(photoTile), this.props.photoTiles.indexOf(photoTile)+3)
+                            .slice(
+                                this.props.photoTiles.indexOf(photoTile), this.props.photoTiles.indexOf(photoTile)+3
+                            )
                             .map(photoTile =>
                                 <HomePhotoTile
                                     key={photoTile.id}
