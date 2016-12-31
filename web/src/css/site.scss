@@ -3,18 +3,33 @@ $photoTilesWide: 3;
 
 body {
 
-    background-color:lightblue;
+    background-color:#EFEDFC;
+    margin:0;
+    padding:0;
 
     > main {
 
         width: $photoTileWidth * $photoTilesWide;
         margin-left:auto;
         margin-right:auto;
+        margin-top:20px;
 
         > div.photo-tile-grid {
-            display:block;
-            position:static;
-            float:none;
+
+            position:relative;
+            box-sizing: border-box;
+
+            > div.photo-tile-row {
+
+                position:relative;
+                box-sizing: border-box;
+
+                &::after {
+                    display:table;
+                    content: ' ';
+                    clear:both;
+                }
+            }
         }
     }
 
@@ -27,22 +42,16 @@ body {
     100%  { opacity: 1; }
 }
 
-@for $i from 1 through $photoTilesWide {
-
-    div.photo-tile:nth-child(#{$i}) {
-        left: ($i - 1) * $photoTileWidth;
-    }
-
-}
-
 div.photo-tile {
 
     width:$photoTileWidth;
     height:$photoTileWidth;
     margin:0;
     padding:0;
-    position:absolute;
-    top: 0;
+    position:relative;
+    display:block;
+    float:left;
+    box-sizing: border-box;
 
     > h2 {
         margin:0;
@@ -56,7 +65,7 @@ div.photo-tile {
         text-align:center;
         font-family: 'Parisienne', cursive;
         font-weight:bold;
-        font-size:5rem;
+        font-size:4rem;
     }
 
     > img {
@@ -89,7 +98,7 @@ div.photo-tile {
 
         > img.photo-hover + h2 {
             margin-top: -2.5rem;
-            top:50%;
+            top:250px;
             display:block;
         }           
 

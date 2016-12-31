@@ -30,7 +30,9 @@ def get_all_photo_tiles():
                 normal_url,
                 hover_url
             from
-                photo_tiles;
+                photo_tiles
+            order by
+                photo_tiles.id;
         """)
 
         for photo_tile_result in photo_tiles_cur.fetchall():
