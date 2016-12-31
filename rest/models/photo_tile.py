@@ -1,5 +1,7 @@
+"""Photo Tile Model"""
+
 class PhotoTile:
-    """ photo tile class """
+    """Photo Tile Model"""
 
     def __init__(self, photo_tile_id, caption, normal_url, hover_url):
         self.photo_tile_id = photo_tile_id
